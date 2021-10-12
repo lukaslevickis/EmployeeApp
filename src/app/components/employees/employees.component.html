@@ -1,0 +1,54 @@
+
+<div class="container">
+  <div class="row"><h2>Employees</h2></div>
+  <div class="row">
+    <form [formGroup]="employeeForm">
+
+      <div>
+        <label for="firstName">
+          First Name 
+        </label>
+        <input id="firstName" type="text" formControlName="firstName" [(ngModel)]="firstName">
+      </div>
+    
+      <div>
+        <label for="lastName">
+          Last Name 
+        </label>
+        <input id="lastName" type="text" formControlName="lastName" [(ngModel)]="lastName">
+      </div>
+      <div>
+        <label for="sex">Select your sex: </label>
+        <select formControlName="sex" id="sex" [(ngModel)]="sex">
+          <option value="0">Male</option>
+          <option value="1">Female</option>
+          <option value="2">Prefer not to say</option>
+        </select>
+      </div>
+      
+      <div *ngIf="update; then thenBlock else elseBlock"></div>
+      <ng-template #thenBlock><button class="update2 btn-primary" (click)="updateEmployee()">update</button></ng-template>
+      <ng-template #elseBlock><button class="button btn-primary" (click)="addEmployee()">Add</button></ng-template>
+    </form>
+  </div>
+  <div class="row">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Remove</th>
+        <th scope="col">Update</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let employee of employees">
+        <td>{{employee.firstName}}</td>
+        <td>{{employee.lastName}}</td>
+        <td><button class="delete btn-danger" (click)="deleteEmployee(employee.id)">remove</button></td>
+        <td><button class="update btn-primary" (click)="loadValuesToForm(employee)">update</button></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
